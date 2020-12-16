@@ -1,0 +1,329 @@
+# Python-projects
+
+import random
+
+import time
+
+
+
+class Kumanda():
+
+   
+
+    def __init__(self,tv_durum="Kapalı",tv_ses=0,kanal_listesi=["trt"],kanal="Trt",tv_marka="Arçelik",tv_ekran="107"):
+
+       
+
+        print("Kumanda oluşturuluyor...")
+
+       
+
+        self.tv_ses=tv_ses
+
+        self.tv_durum=tv_durum
+
+        self.kanal_listesi=kanal_listesi
+
+        self.kanal=kanal
+
+        self.tv_marka=tv_marka # Ek özellikler
+
+        self.tv_ekran=tv_ekran # Ek özellikler
+
+       
+
+    def sesi_azalt_arttır(self):
+
+       
+
+        while True:
+
+           
+
+            karakter=input("Azaltmak için +,arttırmak için - ye basın,işlem tamam ise * a basın.")
+
+           
+
+            if(karakter=="+"):
+
+                if(self.tv_ses!=32):
+
+                    self.tv_ses+=1
+
+                    print("Ses",self.tv_ses)
+
+                   
+
+            elif(karakter=="-"):
+
+                if(self.tv_ses!=0):
+
+                    self.tv_ses-=1
+
+                    print("Ses",self.tv_ses)
+
+                   
+
+            else:
+
+                print("Ses güncellendi",self.tv_ses)
+
+                break
+
+           
+
+    def tv_kapat(self):
+
+       
+
+        print("Tv kapatılıyor...")
+
+        self.tv_durum="Kapalı"
+
+   
+
+    def tv_aç(self):
+
+        print("Tv açılıyor... ")
+
+        self.tv_durum="Açık"
+
+       
+
+    def __str__(self):
+
+       
+
+        return "Tv durumu:{}\n,Ses:{}\n,Kanal listesi:{}\n,Şu anki kanal:{}".format(self.tv_durum,self.tv_ses,self.kanal_listesi,self.kanal)
+
+    def __len__(self):
+
+       
+
+        return len(self.kanal_listesi)
+
+   
+
+    def rastegele_kanal(self):
+
+       
+
+        rastgele=random.randint(0,len(self.kanal_listesi)-1)
+
+        self.kanal=self.kanal_listesi[rastgele]
+
+        print("Şu anki kanal:",self.kanal)
+
+       
+
+    def kanal_ekle(self,kanal):
+
+        print("Kanal eklendi...")   
+
+        self.kanal_listesi.append(kanal)
+
+       
+
+    def kanal_sil(self,sayı): # Ek metod
+
+       
+
+        self.kanal_listesi.pop(sayı)
+
+        print("Yeni kanal listesi:",self.kanal_listesi)
+
+       
+
+    def tv_hakkında(self): # Ek metod
+
+       
+
+        print("Marka:{},Ekran:{}".format(self.tv_marka,self.tv_ekran))
+
+       
+
+    def kanal_sırala(self): # Ek metod
+
+        self.kanal_listesi.sort()
+
+        print("Sıralanmış güncel kanal listesi:",self.kanal_listesi)
+
+       
+
+   
+
+kumanda=Kumanda()
+
+
+
+print("""*******************
+
+
+
+Televizyon Uygulaması
+
+
+
+İşlemler ;
+
+
+
+1. Televizyonu Aç
+
+
+
+2. Televizyonu Kapat
+
+
+
+3. Televizyon Bilgileri
+
+
+
+4. Kanal Sayısını Öğrenme
+
+
+
+5. Kanal Ekle
+
+
+
+6. Rastgele Kanal'a Geç
+
+
+
+7. Sesi Azalt Ya da Artır
+
+
+
+8.Kanal sil
+
+
+
+9.Tv hakkında bilgi
+
+
+
+10.Kanalları alfabetik olarak sırala
+
+
+
+
+
+Çıkmak için 'q' ya basın.
+
+
+
+*******************""")
+
+   
+
+while True:
+
+    işlem=input("İşlemi seçiniz:")
+
+   
+
+    if(işlem=="q"):
+
+        print("Programdan çıkılıyor...")
+
+        break
+
+   
+
+    if(işlem=="1"):
+
+        if(kumanda.tv_durum=="Açık"):
+
+            print("Tv zaten açık...")
+
+           
+
+        else:
+
+            kumanda.tv_aç()
+
+           
+
+       
+
+    elif(işlem=="2"):
+
+       
+
+        if(kumanda.tv_durum=="Kapalı"):
+
+            print("Tv zaten kapalı...")
+
+           
+
+        else:
+
+            kumanda.tv_kapat()
+
+           
+
+       
+
+    elif(işlem=="3"):
+
+        print(kumanda)
+
+       
+
+    elif(işlem=="4"):
+
+        print("Kanal sayısı:",len(kumanda))
+
+       
+
+    elif(işlem=="5"):
+
+        kanallar=input("Eklemek istediğiniz kanalları ',' ile ayırarak girin:")
+
+        eklenecekler=kanallar.split(",")
+
+        for i in eklenecekler:
+
+           kumanda.kanal_ekle(i)
+
+        print("Kanal listesi başarıyla güncellendi...")
+
+       
+
+    elif(işlem=="6"):
+
+        kumanda.rastegele_kanal()
+
+       
+
+    elif(işlem=="7"):
+
+        kumanda.sesi_azalt_arttır()
+
+       
+
+    elif(işlem=="8"):
+
+        numara=int(input("Silinecek kanal numarasını girin: "))
+
+        kumanda.kanal_sil(numara)
+
+       
+
+    elif(işlem=="9"):
+
+        kumanda.tv_hakkında()
+
+       
+
+    elif(işlem=="10"):
+
+        kumanda.kanal_sırala()
+
+   
+
+    else:
+
+        print("Geçersiz işlem...")
